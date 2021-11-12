@@ -14,12 +14,35 @@ export default class ProjetosController {
     return projetoDB
   }
 
-  public async show({ }: HttpContextContract) {
+  public async show({ params, response }: HttpContextContract) {
+    try {
+      const projetoDB = await Projeto.findOrFail(params.id)
+      return projetoDB
+    } catch (error) {
+      response.status(400).send("Projeto não encontrado!!!")
+    }
   }
 
-  public async update({ }: HttpContextContract) {
+  public async update({ request, params, response }: HttpContextContract) {
+    const { projeto } = await request.validate(StoreProjetoValidator)
+    try {
+      const projetoDB = await Projeto.findOrFail(params.id)
+      projetoDB.projeto = projeto
+      await projetoDB.save()
+      return projetoDB
+
+    } catch (error) {
+      response.status(400).send("Projeto não encontrado!!!")
+    }
   }
 
-  public async destroy({ }: HttpContextContract) {
+  public async destroy({ params, response }: HttpContextContract) {
+    try {
+      const projetoDB = await Projeto.findOrFail(params.id)
+      await projetoDB.delete()
+      return projetoDB
+    } catch (error) {
+      response.status(400).send("Projeto não encontrado!!!")
+    }
   }
 }
