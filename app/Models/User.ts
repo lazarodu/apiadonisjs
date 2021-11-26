@@ -41,7 +41,7 @@ export default class User extends BaseModel {
     pivotForeignKey: 'user_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'projeto_id',
-    pivotTable: 'projeto_curtir'
+    pivotTable: 'projeto_curtirs'
   })
   public projetoCurtir: ManyToMany<typeof Projeto>
 }
