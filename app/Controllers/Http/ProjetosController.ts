@@ -4,7 +4,7 @@ import StoreProjetoValidator from 'App/Validators/StoreProjetoValidator'
 
 export default class ProjetosController {
   public async index({ }: HttpContextContract) {
-    const projetoDB = await Projeto.query().preload('user').preload('userCurtir')
+    const projetoDB = await Projeto.query().preload('user').preload('projetoCurtirs')
     return projetoDB
   }
 

@@ -21,6 +21,7 @@ export default class ProjetoCurtirs extends BaseSchema {
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
       table.string("icone")
+      table.unique(["user_id", "projeto_id"])
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -4,13 +4,12 @@ import StoreProjetoCurtirValidator from 'App/Validators/StoreProjetoCurtirValida
 
 export default class ProjetoCurtirsController {
   public async index({ }: HttpContextContract) {
-    const projetoCurtirDB = await ProjetoCurtir.all()
+    const projetoCurtirDB = await ProjetoCurtir.query().preload("projeto").preload("user")
     return projetoCurtirDB
   }
 
   public async store({ request, auth }: HttpContextContract) {
     const data = await request.validate(StoreProjetoCurtirValidator)
-    console.log(data)
     const projetoCurtirDB = await ProjetoCurtir.create({ ...data, userId: auth.user?.id })
     return projetoCurtirDB
   }

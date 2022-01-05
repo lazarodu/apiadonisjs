@@ -4,7 +4,7 @@ import StoreFaqValidator from 'App/Validators/StoreFaqValidator'
 
 export default class FaqsController {
   public async index({ }: HttpContextContract) {
-    const faqDB = await Faq.all()
+    const faqDB = await Faq.query().preload('user').orderBy('id')
     return faqDB
   }
 
